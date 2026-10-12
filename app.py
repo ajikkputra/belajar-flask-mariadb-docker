@@ -1,21 +1,26 @@
+import os
 import pymysql
+from dotenv import load_dotenv
 
-# konfigurasi koneksi ke MariaDB Docker
+# 1. Load data dari file .env
+load_dotenv()
+
+# 2. Ambil konfigurasi menggunakan os.environ
 koneksi = pymysql.connect(
-    host='127.0.0.1',
-    user='root',
-    password='rahasia',
-    database='belajar_docker',
+    host=os.environ.get("DB_HOST"),
+    user=os.environ.get("DB_USER"),
+    password=os.environ.get("DB_PASSWORD"),
+    database=os.environ.get("DB_NAME"),
     cursorclass=pymysql.cursors.DictCursor
 )
 
 try:
     with koneksi.cursor() as cursor:
-        # 2. Query untuk mengambil data (SELECT)
+        # Query untuk mengambil data (SELECT)
         sql = "SELECT id, nama, email FROM pengguna"
         cursor.execute(sql)
 
-        # 3. Ambil semua hasil query
+        #  Ambil semua hasil query
         semua_pengguna = cursor.fetchall()
 
         print("\n--- DATA DARI MARIADB DOCKER ---")
