@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Belajar Docker + Flask Standard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Aplikasi Pengguna Modern (Standar Industri)</h1>
+    
+    <h2>Tambah Pengguna Baru:</h2>
+    <form method="POST">
+        <label>Nama:</label><br>
+        <input type="text" name="nama" placeholder="Masukkan nama..." required><br>
+        <label>Email:</label><br>
+        <input type="email" name="email" placeholder="Masukkan email..." required><br><br>
+        <input type="submit" value="Simpan Ke Database">
+    </form>
+
+    <br><hr><br>
+
+    <h2>Daftar Pengguna Aktif (Dari MariaDB Docker):</h2>
+    <table>
+        <tr><th>ID</th><th>Nama</th><th>Email</th></tr>
+        <!-- Jinja2 Template Engine looping data dari Python -->
+        {% for user in pengguna %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.nama }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
